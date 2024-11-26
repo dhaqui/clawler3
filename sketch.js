@@ -10,6 +10,7 @@ function setup() {
 // アートワークのマーケットプレイスを模したHTMLを生成
 function generateMarketplaceHTML() {
   const randomTitle = `Art Marketplace Mockup ${Math.floor(Math.random() * 1000)}`;
+  const artworkCount = Math.floor(Math.random() * 256) + 1; // 1 to 256 artworks
 
   // Function to generate random artwork using SVG
   function generateArtwork() {
@@ -30,7 +31,7 @@ function generateMarketplaceHTML() {
     `;
   }
 
-  const randomArtworks = Array.from({ length: 10 }, (_, i) => `
+  const randomArtworks = Array.from({ length: artworkCount }, (_, i) => `
     <div style="
       display: flex;
       flex-direction: column;
@@ -96,6 +97,10 @@ function generateMarketplaceHTML() {
 function displayGeneratedPage(html) {
   const iframe = document.getElementById("generated-page");
   iframe.srcdoc = html;
+
+  // Ensure sufficient spacing below iframe
+  const iframeContainer = document.getElementById("iframe-container");
+  iframeContainer.style.marginBottom = "100px";
 }
 
 // マーケットプレイスHTMLを解析
@@ -112,13 +117,25 @@ function crawlMarketplaceHTML(html) {
   };
 }
 
-// 解析結果を表示（アートワーク数を含む）
+// 解析結果を表示（アートワーク数と美学的評価用語を含む）
 function displayCrawlResults(data) {
   const resultsDiv = document.getElementById("results");
 
+  // Add margin to the results section for better visibility
+  resultsDiv.style.marginTop = "30px";
+
+  const aestheticTerms = [
+    "sublime", "ethereal", "harmony", "juxtaposition", "composition",
+    "chromatic", "textural", "avant-garde", "minimalist", "expressionistic"
+  ];
+
+  const randomTerms = Array.from({ length: 3 }, () =>
+    aestheticTerms[Math.floor(Math.random() * aestheticTerms.length)]
+  ).join(", ");
+
   const evaluation = `
-    This mock marketplace showcases ${data.artworksCount} vibrant artworks, inviting 
-    exploration of creativity and value in a virtual gallery.
+    This marketplace radiates ${randomTerms} qualities, offering ${data.artworksCount} 
+    unique pieces of artistry. A celebration of creativity and imagination.
   `;
 
   resultsDiv.innerHTML = `

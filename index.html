@@ -4,53 +4,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hyper Complex HTML Generator</title>
+  <title>Hyper Analysis</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
   <script src="sketch.js"></script>
+  <script>
+    // Generate a random gradient for each reload
+    function generateRandomGradient() {
+      const randomColor1 = `hsl(${Math.floor(Math.random() * 360)}, 70%, 80%)`;
+      const randomColor2 = `hsl(${Math.floor(Math.random() * 360)}, 70%, 60%)`;
+      const randomColor3 = `hsl(${Math.floor(Math.random() * 360)}, 70%, 70%)`;
+      const randomColor4 = `hsl(${Math.floor(Math.random() * 360)}, 70%, 50%)`;
+      document.body.style.background = `linear-gradient(-45deg, ${randomColor1}, ${randomColor2}, ${randomColor3}, ${randomColor4})`;
+      document.body.style.backgroundSize = "400% 400%";
+    }
+    // Call the function on page load
+    window.onload = generateRandomGradient;
+  </script>
   <style>
     body {
-      font-family: 'Courier New', Courier, monospace;
+      font-family: Arial, sans-serif;
+      animation: gradientAnimation 10s ease infinite;
       margin: 0;
       padding: 0;
-      background: linear-gradient(90deg, #1a2a6c, #b21f1f, #fdbb2d);
       color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
     }
-    h2 {
-      margin: 20px 0;
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    h1 {
       text-align: center;
+      margin-top: 20px;
+      font-size: 2.5em;
     }
     #results {
-      background: rgba(255, 255, 255, 0.1);
       padding: 20px;
+      margin: 20px auto;
+      background: rgba(255, 255, 255, 0.8);
+      color: #333;
       border-radius: 10px;
-      width: 90%;
       max-width: 800px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-      margin-bottom: 20px;
-      overflow: auto;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
     iframe {
+      width: 90%;
+      height: 500px;
+      border: none;
+      display: block;
+      margin: 20px auto;
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     }
-    @media (max-width: 768px) {
-      body {
-        font-size: 90%;
-      }
-      iframe {
-        height: 300px;
-      }
+    .iframe-container {
+      margin-bottom: 50px;
     }
   </style>
 </head>
 <body>
-  <h2>Hyper Analysis</h2>
+  <h1>Hyper Analysis</h1>
   <div id="results"></div>
-  <iframe id="generated-page" style="width: 90%; height: 500px;"></iframe>
+  <div id="iframe-container" class="iframe-container">
+    <iframe id="generated-page"></iframe>
+  </div>
 </body>
 </html>
